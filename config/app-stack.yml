@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  nginx:
+    image: localhost:5000/tutorial-nginx
+    build: ./nginx
+    ports:
+      - "80:80"
+      - "443:443"
+  drupal:
+    image: drupal:7-apache
+    ports:
+      - "81:80"
+    volumes:
+      - drupal:/var/www/html
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql:/var/lib/mysql
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+  phpmyadmin:
+    image: phpmyadmin:latest
+    environment:
+      PMA_HOST: "mysql"
+      PMA_USER: "root"
+    ports:
+      - "8080:80"
+volumes:
+  drupal:
+  mysql:

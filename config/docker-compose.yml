@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "${PWD}/nginx:/etc/nginx/conf.d"
+      - "${PWD}/certs:/opt/certs"
+  drupal:
+    image: drupal:7-apache
+    ports:
+      - "81:80"
+    volumes:
+      - drupal:/var/www/html
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql:/var/lib/mysql
+      - "${PWD}/mysql/init-drupal.sql:/docker-entrypoint-initdb.d/init-drupal.sql"
+  phpmyadmin:
+    image: phpmyadmin:latest
+    environment:
+      PMA_HOST: "mysql"
+      PMA_USER: "root"
+    ports:
+      - "8080:80"
+volumes:
+  drupal:
+  mysql:

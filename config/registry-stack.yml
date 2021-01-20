@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  registry:
+    image: registry:2
+    ports:
+      - "5000:5000"
+    volumes:
+      - registry_vol:/var/lib/registry
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+volumes:
+  registry_vol:
