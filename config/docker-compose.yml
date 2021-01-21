@@ -7,7 +7,7 @@ services:
       - "443:443"
     volumes:
       - "${PWD}/nginx:/etc/nginx/conf.d"
-      - "${PWD}/certs:/opt/certs"
+      - "${PWD}/nginx/certs:/certs"
   drupal:
     image: drupal:7-apache
     ports:
@@ -30,6 +30,15 @@ services:
       PMA_USER: "root"
     ports:
       - "8080:80"
+  portainer:
+    image: portainer/portainer-ce:latest
+    ports:
+      - "8000:8000"
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer:/data
 volumes:
   drupal:
   mysql:
+  portainer:

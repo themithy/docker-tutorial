@@ -33,10 +33,10 @@ volumes:
     driver_opts:
       type: "none"
       o: "bind"
-      device: "/volume/tutorial2/html"
+      device: "/volume/tutorial/html"
   mysql:
     driver: local
     driver_opts:
       type: "none"
       o: "bind"
-      device: "/volume/tutorial2/mysql"
+      device: "/volume/tutorial/mysql"

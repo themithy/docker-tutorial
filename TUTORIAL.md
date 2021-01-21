@@ -67,7 +67,25 @@ services:
       - "443:443"
     volumes:
       - "${PWD}/nginx:/etc/nginx/conf.d"
-      - "${PWD}/certs:/opt/certs"
+      - "${PWD}/certs:/certs"
+```
+
+Add portainer to visual manage docker:
+```
+services:
+  ...
+  portainer:
+    image: portainer/portainer-ce:latest
+    ports:
+      - "8000:8000"
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer:/data
+  ...
+volumes:
+  ...
+  portainer
 ```
 
 Create custom network topologies by defining networks:

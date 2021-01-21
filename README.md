@@ -3,24 +3,34 @@
 In this tutorial we will learn the basics of docker and prepare a application
 for a deployment in cloud.
 
-## Requirements
-
-Get a Linux machine with Mint or Ubuntu and install docker:
+To start take a Linux machine (preffered Mint or Ubuntu) and install docker:
 ```
 sudo apt-get install -y docker.io docker-compose
 ```
 
+If you want to start quickly skip the rest of the tutorial and run this
+command:
+```
+docker-compose -f config/docker-compose.yml up
+```
+
 ## Http server (simple example)
 
-Here is how we can quickly run a http server:
+We will use the official *apache2* image from docker public repository (called
+Docker Hub).
+
+Note: *httpd* and *apache2* are interchangable names.
+
+We can start the server like this:
 ```
 docker run -p 80:80 httpd:latest
 ```
-Now open `http://localhost` in browser and viola!
+Open `http://localhost` in browser and viola!
 
-We can also use the official apache2 image to server some specific content:
+Now we can will mount the current directory to serve the content of this
+tutorial over the internet:
 ```
-docker run -p 80:80 -v "${PWD}/html-sample:/usr/local/apache2/htdocs/" httpd:latest
+docker run -p 80:80 -v "${PWD}:/usr/local/apache2/htdocs/" httpd:latest
 ```
 
 The `-p` option makes the docker port visible from the outside world. By
@@ -132,7 +142,7 @@ containers, networks, or volumes.
 Deploy the configuration:
 ```
 docker swarm init
-docker stack deploy -c config/docker-compose.yml tutorial
+docker stack deploy -c config/app-stack.yml tutorial
 ```
 
 Delete the deploy:
