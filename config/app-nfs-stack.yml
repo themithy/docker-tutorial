@@ -13,7 +13,7 @@ services:
     volumes:
       - drupal:/var/www/html
   mysql:
-    image: mysql:latest
+    image: mysql:5
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     ports:

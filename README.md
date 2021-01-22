@@ -46,7 +46,7 @@ The `-d` option lets us run the container in a "detached mode" (in background).
 We will use the official mysql image (w/o writing own Dockerfile).
 
 ```
-mysql run -d -e MYSQL_ALLOW_EMPTY_PASSWORD="yes" -p 3306:3306 mysql:latest
+mysql run -d -e MYSQL_ALLOW_EMPTY_PASSWORD="yes" -p 3306:3306 mysql:5
 ```
 
 The `-e` option lets us pass env variables directly to the container. Here the
@@ -97,7 +97,7 @@ created for us and managed completely by docker. Add this option to `docker-run`
 `-v tutorial_mysql_vol:/var/lib/mysql`.
 
 ```
-mysql run -d -e MYSQL_ALLOW_EMPTY_PASSWORD="yes" -p 3306:3306 -v tutorial_mysql_vol:/var/lib/mysql mysql:latest
+mysql run -d -e MYSQL_ALLOW_EMPTY_PASSWORD="yes" -p 3306:3306 -v tutorial_mysql_vol:/var/lib/mysql mysql:5
 ```
 
 To list all volumes:

@@ -10,12 +10,13 @@ services:
       - "${PWD}/nginx/certs:/certs"
   drupal:
     image: drupal:7-apache
-    ports:
-      - "81:80"
+    environment:
+      DRUPAL_BASE_URL: "https://localhost"
     volumes:
       - drupal:/var/www/html
+      - "${PWD}/drupal/install.php:/var/www/html/install.php"
   mysql:
-    image: mysql:latest
+    image: mysql:5
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     ports:

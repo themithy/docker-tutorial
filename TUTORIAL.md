@@ -9,7 +9,7 @@ Add *mysql* service:
 ```
 services:
   mysql:
-    image: mysql:latest
+    image: mysql:5
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     ports:
@@ -50,6 +50,7 @@ services:
       - "80:80"
     volumes:
       - drupal:/var/www/html
+      - "${PWD}/drupal/install.php:/var/www/html/install.php"
   ...
 volumes:
   ...
@@ -68,7 +69,13 @@ services:
     volumes:
       - "${PWD}/nginx:/etc/nginx/conf.d"
       - "${PWD}/certs:/certs"
+  ...
+  drupal:
+    ...
+    environment:
+      DRUPAL_BASE_URL: "https://localhost"
 ```
+And remove ports forwarding for drupal image.
 
 Add portainer to visual manage docker:
 ```
