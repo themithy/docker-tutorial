@@ -2,7 +2,7 @@
 
 Start the `docker-compose.yml`:
 ```
-version: '3.8'
+version: '3.2'
 ```
 
 Add *mysql* service:
