@@ -2,18 +2,18 @@ version: '3.2'
 services:
   nginx:
     image: localhost:5000/tutorial-nginx
-    build: ./nginx
+    build: ./../nginx
     ports:
       - "80:80"
       - "443:443"
   drupal:
-    image: drupal:7-apache
-    ports:
-      - "81:80"
+    image: localhost:5000/tutorial-drupal
+    build: ./../drupal
     volumes:
       - drupal:/var/www/html
   mysql:
-    image: mysql:5
+    image: localhost:5000/tutorial-mysql
+    build: ./../mysql
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     ports:

@@ -150,3 +150,11 @@ secrets:
     external: true
 ```
 
+Force to deploy on certain node:
+```
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+```
+
