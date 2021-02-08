@@ -1,0 +1,43 @@
+version: '3.2'
+services:
+  proxy:
+    image: localhost:5000/tutorial-nginx
+    build: ./../nginx
+    networks:
+      - front_network
+    ports:
+      - "80:80"
+      - "443:443"
+  drupal:
+    image: localhost:5000/tutorial-drupal
+    build: ./../drupal
+    environment:
+      DRUPAL_BASE_URL: "https://docker-tutorial"
+    networks:
+      - front_network
+      - backbone_network
+    volumes:
+      - /network/tutorial-cent/drupal:/var/www/html/sites/default/
+  mysql:
+    image: localhost:5000/tutorial-mysql
+    build: ./../mysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    networks:
+      - backbone_network
+    ports:
+      - "3306:3306"
+    volumes:
+      - /network/tutorial-cent/mysql:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin:latest
+    environment:
+      PMA_HOST: "mysql"
+      PMA_USER: "root"
+    networks:
+      - backbone_network
+    ports:
+      - "8080:80"
+networks:
+  front_network:
+  backbone_network:

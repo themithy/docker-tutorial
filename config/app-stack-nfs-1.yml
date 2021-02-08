@@ -1,6 +1,6 @@
 version: '3.2'
 services:
-  nginx:
+  proxy:
     image: localhost:5000/tutorial-nginx
     build: ./../nginx
     ports:
@@ -9,8 +9,10 @@ services:
   drupal:
     image: localhost:5000/tutorial-drupal
     build: ./../drupal
+    environment:
+      DRUPAL_BASE_URL: "https://docker-tutorial"
     volumes:
-      - drupal:/var/www/html
+      - /network/tutorial-cent/drupal:/var/www/html/sites/default/
   mysql:
     image: localhost:5000/tutorial-mysql
     build: ./../mysql
@@ -19,7 +21,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - mysql:/var/lib/mysql
+      - /network/tutorial-cent/mysql:/var/lib/mysql
   phpmyadmin:
     image: phpmyadmin:latest
     environment:
@@ -27,16 +29,3 @@ services:
       PMA_USER: "root"
     ports:
       - "8080:80"
-volumes:
-  drupal:
-    driver: local
-    driver_opts:
-      type: "none"
-      o: "bind"
-      device: "/volume/tutorial/html"
-  mysql:
-    driver: local
-    driver_opts:
-      type: "none"
-      o: "bind"
-      device: "/volume/tutorial/mysql"
